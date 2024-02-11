@@ -8,13 +8,28 @@ using namespace std;
 int main(){
 	cout << "Hello AVL!\n";
     AVLNode* root = nullptr;
-    root = insert(root,"Mya","30981303");
-    root = insert(root,"Emmy","102345");
-    root = insert(root,"Zach","88829201");
-    root = insert(root,"9s9sd","009101");
-    root = insert(root,"Cielo","2921a");
-    root = insert(root,"sdjs/","1890218");
-    printAVLTree(root);
+    root = root->insert(root,"5","5");
+    root->insert(root,"8","8");
+    root->insert(root,"2","2");
+    root->insert(root,"3","3");
+    root->insert(root,"9","9");
+    root->insert(root,"10","10");
+
+    cout << "In Order: ";
+    root->printInOrder(root);
+    cout << endl;
+
+    cout << "PreOrder: ";
+    root->printPreOrder(root);
+    cout << endl;
+
+    cout << "PostOrder: ";
+    root->printPostOrder(root);
+    cout << endl;
+
+    cout << "Heights" << endl;
+    root->printHeightNode(root);
+
 
 
 	return 0;
