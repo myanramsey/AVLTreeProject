@@ -48,11 +48,9 @@ class AVLNode {
         return true;
     }
 
-    //TODO: Add height update function to the tree so we can update and figure out when we can rotate the tree
-
     AVLNode* insert(AVLNode* root, string name, string id){
         // check to see of name and id are correct
-        //TODO: Figure out why is it checking the name twice.
+        //TODO: Balance Tree Next :).
         //TODO: Ask Zach about the command line and command stuff <3
 //        cout << name << " " << id << endl;
         if(root == nullptr){
