@@ -18,7 +18,7 @@ class AVLNode {
     AVLNode() {
         this->studentName = "Default";
         this->studentID = "00000000";
-        this->height = 1;
+        this->height = 0;
         this->left = nullptr;
         this->right = nullptr;
 
@@ -26,7 +26,7 @@ class AVLNode {
     AVLNode(string studentName, string studentID) {
         this->studentName = studentName;
         this->studentID = studentID;
-        this->height = 1;
+        this->height = 0;
         this->left = nullptr;
         this->right = nullptr;
     }
