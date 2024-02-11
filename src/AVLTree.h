@@ -65,24 +65,30 @@ class AVLNode {
             root->right = insert(root->right,name,id);
         }
 
-        updateHeight();
-
+        updateHeight(root, root->studentID);
         return root;
     }
-    int updateHeight(){
-        int leftHeight = 0;
-        int rightHeight = 0;
-
-        if(this->left != nullptr){
-            leftHeight = left->updateHeight();
-        }
-        if(this->right != nullptr){
-            rightHeight = right->updateHeight();
+    int updateHeightHelp(AVLNode* root, string x, int &h){
+        if(root == nullptr){
+            return -1;
         }
 
-        this->height = max(leftHeight,rightHeight);
+        int leftHeight = updateHeightHelp(root->left, x, h);
+        int rightHeight = updateHeightHelp(root->right,x,h);
 
-        return 1 + max(leftHeight,rightHeight);
+        int level = 1 + max(leftHeight,rightHeight);
+
+        if(root->studentID == x){
+            height = level;
+        }
+        return level;
+    }
+    void updateHeight(AVLNode* root, string x){
+        int h = -1;
+
+        int maxHeight = updateHeightHelp(root,x,h);
+
+        root->height = maxHeight;
     }
 
     void printLevel(AVLNode* root){
