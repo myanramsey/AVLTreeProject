@@ -148,10 +148,23 @@ private:
         int balanceFactor = checkHeight(unbalancedNode->left) - checkHeight(unbalancedNode->right);
         if(balanceFactor == -2){
             cout << "right heavy" << endl;
-            //check if left heavy
+            //Check for right left rotation
+            if(unbalancedNode->right->right == nullptr){
+                //rotation right left rotation
+
+            }
+            else{
+                //right right rotation
+            }
         }
         else if(balanceFactor == 2){
             cout << "left heavy" << endl;
+            if(unbalancedNode->left->left == nullptr){
+                // left right rotation
+            }
+            else{
+                //left left rotation
+            }
         }
 
         unbalancedNode = nullptr;
