@@ -6,6 +6,7 @@
 #include <cmath>
 
 
+//TODO: Ask Zack how to make test cases on checking height and order of the nodes to ensure insert working properly.
 using namespace std;
 
 class AVLTree {
@@ -53,6 +54,7 @@ private:
     };
     public:
     Node* root;
+    Node* unbalancedNode;
     AVLTree() {
         this->root= nullptr;
     }
@@ -90,11 +92,42 @@ private:
         root->insertNode(name,id);
 
         updateHeight(root, root->studentID);
+        findUnbalanced(root);
+
+        //find unbalanced node
+        if(unbalancedNode != nullptr){
+            rotation(unbalancedNode);
+        }
+
         return root;
     }
+
+    void findUnbalanced(Node* n){
+        if(n == nullptr)
+            return;
+
+        int balanceFactor = checkHeight(n->left) - checkHeight(n->right);
+
+        if(balanceFactor < -1 || balanceFactor > 1){
+                cout << n->studentName << " is unbalanced. BF: " << balanceFactor << endl;
+                unbalancedNode = n;
+        }
+        findUnbalanced(n->right);
+        findUnbalanced(n->left);
+    }
+
+    int checkHeight(Node* n){
+        if(n == nullptr){
+            return 0;
+        }
+        else{
+            return n->height;
+        }
+    }
+
     int updateHeightHelp(Node* n, string x, int &h){
         if(n == nullptr){
-            return -1;
+            return 0;
         }
 
         int leftHeight = updateHeightHelp(n->left, x, h);
@@ -109,6 +142,19 @@ private:
     void updateHeight(Node* n, string x){
         int h = -1;
         n->height = updateHeightHelp(n,x,h);
+    }
+
+    void rotation(Node* n){
+        int balanceFactor = checkHeight(unbalancedNode->left) - checkHeight(unbalancedNode->right);
+        if(balanceFactor == -2){
+            cout << "right heavy" << endl;
+            //check if left heavy
+        }
+        else if(balanceFactor == 2){
+            cout << "left heavy" << endl;
+        }
+
+        unbalancedNode = nullptr;
     }
 
     void printLevel(){
