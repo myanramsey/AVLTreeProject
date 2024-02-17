@@ -8,27 +8,60 @@
 
 using namespace std;
 
-class AVLNode {
-    public:
+class AVLTree {
+private:
+    struct Node{
         string studentName;
         string studentID;
         int height;
-        AVLNode *left;
-        AVLNode *right;
-    AVLNode() {
-        this->studentName = "Default";
-        this->studentID = "00000000";
-        this->height = 0;
-        this->left = nullptr;
-        this->right = nullptr;
+        Node* left;
+        Node* right;
+        Node(){
+            this->studentName = "";
+            this->studentID = "";
+        }
+        Node(string name, string id) {
+            this->studentName = name;
+            this->studentID = id;
+            this->height = 0;
+            this->left = nullptr;
+            this->right = nullptr;
 
+        }
+        Node* insertNode(string name, string id){
+            if(stoi(id) < stoi(this->studentID)){
+                if(this->left == nullptr){
+                    this->left = new Node(name,id);
+                }
+                else{
+                    this->left = this->left->insertNode(name,id);
+                }
+                return this;
+            }
+            else if(stoi(id) > stoi(this->studentID)){
+                if(this->right == nullptr) {
+                    this->right = new Node(name, id);
+                }
+                else{
+                    this->right = this->right->insertNode(name,id);
+
+                }
+            }
+            return this;
+        }
+
+    };
+    public:
+    Node* root;
+    AVLTree() {
+        this->root= nullptr;
     }
-    AVLNode(string studentName, string studentID) {
-        this->studentName = studentName;
-        this->studentID = studentID;
-        this->height = 0;
-        this->left = nullptr;
-        this->right = nullptr;
+    AVLTree(string studentName, string studentID) {
+        this->root->studentName = studentName;
+        this->root->studentID = studentID;
+        this->root->height = 0;
+        this->root->left = nullptr;
+        this->root->right = nullptr;
     }
 
     bool isValidName(string name){
@@ -48,61 +81,50 @@ class AVLNode {
         return true;
     }
 
-    AVLNode* insert(AVLNode* root, string name, string id){
-        // check to see of name and id are correct
-        //TODO: Balance Tree Next :).
-        //TODO: Ask Zach about the command line and command stuff <3
-//        cout << name << " " << id << endl;
+    Node* insert(string name, string id){
         if(root == nullptr){
-            return new AVLNode(name,id);
+            root = new Node(name,id);
+            return root;
         }
-        else if(stoi(id) < stoi(root->studentID)){
-            root->left = insert(root->left,name,id);
-        }
-        else if(stoi(id) > stoi(root->studentID)){
-            root->right = insert(root->right,name,id);
-        }
+
+        root->insertNode(name,id);
 
         updateHeight(root, root->studentID);
         return root;
     }
-    int updateHeightHelp(AVLNode* root, string x, int &h){
-        if(root == nullptr){
+    int updateHeightHelp(Node* n, string x, int &h){
+        if(n == nullptr){
             return -1;
         }
 
-        int leftHeight = updateHeightHelp(root->left, x, h);
-        int rightHeight = updateHeightHelp(root->right,x,h);
+        int leftHeight = updateHeightHelp(n->left, x, h);
+        int rightHeight = updateHeightHelp(n->right,x,h);
 
         int level = 1 + max(leftHeight,rightHeight);
 
-        if(root->studentID == x){
-            height = level;
-        }
+        n->height = level;
+
         return level;
     }
-    void updateHeight(AVLNode* root, string x){
+    void updateHeight(Node* n, string x){
         int h = -1;
-
-        int maxHeight = updateHeightHelp(root,x,h);
-
-        root->height = maxHeight;
+        n->height = updateHeightHelp(n,x,h);
     }
 
-    void printLevel(AVLNode* root){
+    void printLevel(){
         if(root == nullptr){
             cout <<"pls"<< endl;
             return;
         }
 
-        queue<AVLNode*> q;
+        queue<Node*> q;
         q.push(root);
 
         while(!q.empty()){
             int size = q.size();
 
             for(int n = 0; n < size; n++){
-                AVLNode * current = q.front();
+                Node * current = q.front();
                 q.pop();
 
                 cout << current->studentName << " ";
@@ -117,38 +139,39 @@ class AVLNode {
             cout << endl;
         }
     }
-    void printInOrder(AVLNode* root){
-        if(root == nullptr){
+    void printInOrder(Node* n){
+        if(n == nullptr){
             return;
         }
-        printInOrder(root->left);
-        cout << root->studentName << " ";
-        printInOrder(root->right);
+        printInOrder(n->left);
+        cout << n->studentName << " ";
+        printInOrder(n->right);
     }
-    void printPreOrder(AVLNode* root){
-        if(root == nullptr){
-            return;
-        }
-        cout << root->studentName << " ";
-        printPreOrder(root->left);
-        printPreOrder(root->right);
-    }
-    void printPostOrder(AVLNode* root){
-        if(root == nullptr){
-            return;
-        }
-        printPostOrder(root->left);
-        printPostOrder(root->right);
 
-        cout << root->studentName << " ";
-    }
-    void printHeightNode(AVLNode* root){
-        if(root == nullptr){
+    void printPreOrder(Node* n){
+        if(n == nullptr){
             return;
         }
-        printHeightNode(root->left);
-        cout << root->studentName << "  : " << root->height << endl;
-        printHeightNode(root->right);
+        cout << n->studentName << " ";
+        printPreOrder(n->left);
+        printPreOrder(n->right);
+    }
+    void printPostOrder(Node* n){
+        if(n == nullptr){
+            return;
+        }
+        printPostOrder(n->left);
+        printPostOrder(n->right);
+
+        cout << n->studentName << " ";
+    }
+    void printHeightNode(Node* n){
+        if(n == nullptr){
+            return;
+        }
+        printHeightNode(n->left);
+        cout << n->studentName << "  : " << n->height << endl;
+        printHeightNode(n->right);
     }
 
 };

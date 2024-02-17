@@ -7,28 +7,28 @@ using namespace std;
 
 int main(){
 	cout << "Hello AVL!\n";
-    AVLNode* root = nullptr;
-    root = root->insert(root,"5","5");
-    root->insert(root,"8","8");
-    root->insert(root,"2","2");
-    root->insert(root,"3","3");
-    root->insert(root,"9","9");
-    root->insert(root,"10","10");
+    AVLTree* tree = new AVLTree();
+    tree->insert("5","5");
+    tree->insert("8","8");
+    tree->insert("2","2");
+    tree->insert("3","3");
+    tree->insert("9","9");
+    tree->insert("10","10");
 
     cout << "In Order: ";
-    root->printInOrder(root);
+    tree->printInOrder(tree->root);
     cout << endl;
 
     cout << "PreOrder: ";
-    root->printPreOrder(root);
+    tree->printPreOrder(tree->root);
     cout << endl;
 
     cout << "PostOrder: ";
-    root->printPostOrder(root);
+    tree->printPostOrder(tree->root);
     cout << endl;
 
     cout << "Heights" << endl;
-    root->printHeightNode(root);
+    tree->printHeightNode(tree->root);
 
 
 
