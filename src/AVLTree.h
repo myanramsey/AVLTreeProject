@@ -51,10 +51,40 @@ private:
             return this;
         }
 
+        //rotations
+        Node* rotateRightRightCase(){
+            Node* grandchild = this->right->left;
+            Node* newRoot = this->right;
+            newRoot->left = this;
+            this->right = grandchild;
+            return newRoot;
+        }
+        Node* rotateLeftLeftCase(){
+            Node* grandchild = this->left->right;
+            Node* newRoot = this->left;
+            newRoot->right = this;
+            this->left = grandchild;
+            return newRoot;
+        }
+        Node* rightLeftCase(){
+            Node* tempRight = right->rotateLeftLeftCase();
+            this->right = tempRight;
+            Node* newRoot = this->rotateRightRightCase();
+            return newRoot;
+        }
+
+        Node* leftRightCase() {
+            //Left Right Rotation of AVL
+            Node* tempLeft = this->left->rotateRightRightCase();
+            this->left = tempLeft;
+            Node* newRoot = this->rotateLeftLeftCase();
+            return newRoot;
+        }
+
     };
     public:
+
     Node* root;
-    Node* unbalancedNode;
     AVLTree() {
         this->root= nullptr;
     }
@@ -92,28 +122,57 @@ private:
         root->insertNode(name,id);
 
         updateHeight(root, root->studentID);
-        findUnbalanced(root);
+        root = findUnbalancedRotate(root);
 
-        //find unbalanced node
-        if(unbalancedNode != nullptr){
-            rotation(unbalancedNode);
-        }
 
         return root;
     }
 
-    void findUnbalanced(Node* n){
+    Node* findUnbalancedRotate(Node* n){
         if(n == nullptr)
-            return;
+            return nullptr;
 
         int balanceFactor = checkHeight(n->left) - checkHeight(n->right);
-
+        n->right = findUnbalancedRotate(n->right);
+        n->left = findUnbalancedRotate(n->left);
         if(balanceFactor < -1 || balanceFactor > 1){
-                cout << n->studentName << " is unbalanced. BF: " << balanceFactor << endl;
-                unbalancedNode = n;
+
+            cout << n->studentName << " is unbalanced. BF: " << balanceFactor << endl;
+
+            if(balanceFactor == -2){
+                cout << "right heavy" << endl;
+                //Check for right left rotation
+                if(n->right->right == nullptr){
+                    //rotation right left rotation
+                    cout << "right left rotation" << endl;
+                    n = n->rightLeftCase();
+                    return n;
+                }
+                else{
+                    //right right
+                    cout << "right right" << endl;
+                    n = n->rotateRightRightCase();
+                    return n;
+                }
+            }
+            else if(balanceFactor == 2){
+                cout << "left heavy" << endl;
+                if(n->left->left == nullptr){
+                    // left right rotation
+                    cout << "left-right rotation" << endl;
+                    n = n->leftRightCase();
+                    return n;
+                }
+                else{
+                    //left left rotation
+                    cout << "left-left rotation" << endl;
+                    n = n->rotateLeftLeftCase();
+                    return n;
+                }
+            }
         }
-        findUnbalanced(n->right);
-        findUnbalanced(n->left);
+        return n;
+
     }
 
     int checkHeight(Node* n){
@@ -144,31 +203,6 @@ private:
         n->height = updateHeightHelp(n,x,h);
     }
 
-    void rotation(Node* n){
-        int balanceFactor = checkHeight(unbalancedNode->left) - checkHeight(unbalancedNode->right);
-        if(balanceFactor == -2){
-            cout << "right heavy" << endl;
-            //Check for right left rotation
-            if(unbalancedNode->right->right == nullptr){
-                //rotation right left rotation
-
-            }
-            else{
-                //right right rotation
-            }
-        }
-        else if(balanceFactor == 2){
-            cout << "left heavy" << endl;
-            if(unbalancedNode->left->left == nullptr){
-                // left right rotation
-            }
-            else{
-                //left left rotation
-            }
-        }
-
-        unbalancedNode = nullptr;
-    }
 
     void printLevel(){
         if(root == nullptr){
@@ -203,7 +237,7 @@ private:
             return;
         }
         printInOrder(n->left);
-        cout << n->studentName << " ";
+        cout << n->studentName << ",";
         printInOrder(n->right);
     }
 
@@ -211,7 +245,7 @@ private:
         if(n == nullptr){
             return;
         }
-        cout << n->studentName << " ";
+        cout << n->studentName << ",";
         printPreOrder(n->left);
         printPreOrder(n->right);
     }
@@ -222,7 +256,7 @@ private:
         printPostOrder(n->left);
         printPostOrder(n->right);
 
-        cout << n->studentName << " ";
+        cout << n->studentName << ",";
     }
     void printHeightNode(Node* n){
         if(n == nullptr){
