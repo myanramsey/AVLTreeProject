@@ -132,9 +132,10 @@ private:
         if(n == nullptr)
             return nullptr;
 
-        int balanceFactor = checkHeight(n->left) - checkHeight(n->right);
         n->right = findUnbalancedRotate(n->right);
         n->left = findUnbalancedRotate(n->left);
+
+        int balanceFactor = checkHeight(n->left) - checkHeight(n->right);
         if(balanceFactor < -1 || balanceFactor > 1){
 
             cout << n->studentName << " is unbalanced. BF: " << balanceFactor << endl;
@@ -172,7 +173,6 @@ private:
             }
         }
         return n;
-
     }
 
     int checkHeight(Node* n){
