@@ -2,71 +2,65 @@
 
 #include "AVLTree.h"
 
-
 using namespace std;
 
+bool isValidName(string name){
+    for(unsigned int i = 0; i < name.length(); i++){
+        if(isdigit(name[i]) || ispunct(name[i])){
+            return false;
+        }
+    }
+    return true;
+}
+bool isValidID(string id){
+    for(unsigned int i = 0; i < id.length(); i++){
+        if(!isdigit(id[i])){
+            return false;
+        }
+    }
+    return true;
+}
+
 int main(){
+    vector<string> inOrder;
+    vector<string> preOrder;
+    vector<string> postOrder;
+
 	cout << "Hello AVL!\n";
-    AVLTree* tree = new AVLTree();
 
-//    //right-left case
-//    tree->insert("22","22");
-//    tree->insert("4","4");
-//    tree->insert("25","25");
-//    tree->insert("1","1");
-//    tree->insert("2","2");
+//    AVLTree* tree = new AVLTree();
 
-    //left-right case
-//    tree->insert("10","10");
-//    tree->insert("8","8");
-//    tree->insert("9","9");
+    string numCommands;
+    getline(cin, numCommands);
+    int turns = stoi(numCommands);
 
-    tree->insert("5", "5");
-    tree->insert("3", "3");
-    tree->insert("7", "7");
-    tree->insert("2", "2");
-    tree->insert("4", "4");
+    string userInput;
 
-    tree->removeNode(tree->root, "3");
+    while(turns > 0){
+        getline(cin,userInput); //gets the user's next input
+        auto pos = userInput.find(' ');
 
-    //Right Right
-//    tree->insert("1","1");
-//    tree->insert("2","2");
-//    tree->insert("3","3");
+        string command = userInput.substr(0,pos);
+        cout << command << endl;
+        if(command == "insert"){
 
-//    //Left Left
-//    tree->insert("3","3");
-//    tree->insert("2","2");
-//    tree->insert("1","1");
+            auto pos_string_start = userInput.find('\"') + 1;
+            auto pos_string_end = userInput.substr(pos_string_start).find('\"');
 
+            auto name = userInput.substr(pos_string_start,pos_string_end);
 
+            //check if valid name
+            if(isValidName(name) == false){
+                cout << "unsuccessful" << endl;
+            }
+            else{
+                insert()
+            }
 
+        }
 
+    }
 
 
-    cout << "In Order: ";
-    tree->printInOrder(tree->root);
-    cout << endl;
-
-    cout << "PreOrder: ";
-    tree->printPreOrder(tree->root);
-    cout << endl;
-
-    cout << "PostOrder: ";
-    tree->printPostOrder(tree->root);
-    cout << endl;
-
-    tree->remove(tree->root,"5");
-    cout << "In Order: ";
-    tree->printInOrder(tree->root);
-    cout << endl;
-
-    cout << "PreOrder: ";
-    tree->printPreOrder(tree->root);
-    cout << endl;
-
-    cout << "PostOrder: ";
-    tree->printPostOrder(tree->root);
-    cout << endl;
 	return 0;
 }

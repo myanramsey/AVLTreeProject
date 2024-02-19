@@ -63,6 +63,9 @@ private:
             }
             return n;
         }
+        Node* search(Node* n, string name){
+            return nullptr;
+        }
         //rotations
         Node* rotateRightRightCase(){
             Node* grandchild = this->right->left;
@@ -108,22 +111,6 @@ private:
         this->root->right = nullptr;
     }
 
-    bool isValidName(string name){
-        for(unsigned int i = 0; i < name.length(); i++){
-            if(isdigit(name[i]) || ispunct(name[i])){
-                return false;
-            }
-        }
-        return true;
-    }
-    bool isValidID(string id){
-        for(unsigned int i = 0; i < id.length(); i++){
-            if(!isdigit(id[i])){
-                return false;
-            }
-        }
-        return true;
-    }
 
     Node* insert(string name, string id){
         if(root == nullptr){
@@ -275,10 +262,21 @@ private:
         return n;
     }
 
-    void printLevel(){
+    bool searchId(string id){
+        Node* temp = root->searchIdNode(root,id);
+        if(temp == nullptr){
+            cout << "not found" << endl;
+            return false;
+        }
+        cout << "found" << endl;
+        return true;
+    }
+
+
+    vector<string> foundNames(Node* n,string name){
+        vector<string> namesfound;
         if(root == nullptr){
-            cout <<"pls"<< endl;
-            return;
+            return namesfound;
         }
 
         queue<Node*> q;
@@ -287,11 +285,14 @@ private:
         while(!q.empty()){
             int size = q.size();
 
-            for(int n = 0; n < size; n++){
-                Node * current = q.front();
+            for(int i = 0; i < size; i++){
+                Node* current = q.front();
                 q.pop();
 
                 cout << current->studentName << " ";
+                if(current->studentID == name){
+                    namesfound.push_back(current->studentName);
+                }
 
                 if(current->left != nullptr){
                     q.push(current->left);
@@ -300,34 +301,43 @@ private:
                     q.push(current->right);
                 }
             }
-            cout << endl;
         }
-    }
-    void printInOrder(Node* n){
-        if(n == nullptr){
-            return;
-        }
-        printInOrder(n->left);
-        cout << n->studentName << " ";
-        printInOrder(n->right);
+        //in order so make sure to print the vector in reverse
+        return namesfound;
     }
 
-    void printPreOrder(Node* n){
-        if(n == nullptr){
-            return;
-        }
-        cout << n->studentName << " ";
-        printPreOrder(n->left);
-        printPreOrder(n->right);
-    }
-    void printPostOrder(Node* n){
-        if(n == nullptr){
-            return;
-        }
-        printPostOrder(n->left);
-        printPostOrder(n->right);
 
-        cout << n->studentName << " ";
+    int findLevel(Node* n){
+        if (n == nullptr) {
+            return 0;
+        }
+        else {
+            int leftDepth = findLevel(n->left);
+            int rightDepth = findLevel(n->right);
+
+            return max(leftDepth,rightDepth);
+        }
+    }
+    void printInOrder(Node* n, vector<string> &names){
+        if(n != nullptr){
+            printInOrder(n->left,names);
+            names.push_back(n->studentName);
+            printInOrder(n->right,names);
+        }
+    }
+    void printPreOrder(Node* n,vector<string> &names){
+        if(n != nullptr){
+            names.push_back(n->studentName);
+            printPreOrder(n->left,names);
+            printPreOrder(n->right,names);
+        }
+    }
+    void printPostOrder(Node* n,vector<string> &names){
+        if(n != nullptr){
+            printPostOrder(n->left,names);
+            printPostOrder(n->right,names);
+            names.push_back(n->studentName);
+        }
     }
     void printHeightNode(Node* n){
         if(n == nullptr){
