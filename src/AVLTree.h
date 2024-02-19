@@ -50,7 +50,19 @@ private:
             }
             return this;
         }
+        Node* searchIdNode(Node* n, string id){
+            if(n == nullptr || n->studentID == id){
+                return n;
+            }
 
+            if(stoi(id) < stoi(n->studentID)){
+                return searchIdNode(n->left,id);
+            }
+            else if(stoi(id) > stoi(n->studentID)){
+                return searchIdNode((n->right),id);
+            }
+            return n;
+        }
         //rotations
         Node* rotateRightRightCase(){
             Node* grandchild = this->right->left;
@@ -72,7 +84,6 @@ private:
             Node* newRoot = this->rotateRightRightCase();
             return newRoot;
         }
-
         Node* leftRightCase() {
             //Left Right Rotation of AVL
             Node* tempLeft = this->left->rotateRightRightCase();
@@ -81,10 +92,11 @@ private:
             return newRoot;
         }
 
+        //
     };
     public:
-
     Node* root;
+
     AVLTree() {
         this->root= nullptr;
     }
@@ -204,6 +216,65 @@ private:
     }
 
 
+    Node* removeNode(Node* n,string id){
+        root = remove(root,id);
+        updateHeight(root,root->studentID);
+        return root;
+    }
+    Node* remove(Node* n,string id){
+        // Base case
+        if (n == nullptr)
+            return n;
+
+        // Recursive calls for ancestors of
+        // node to be deleted
+        if (n->studentID > id) {
+            n->left = remove(n->left, id);
+            return n;
+        }
+        else if (n->studentID < id) {
+            n->right = remove(n->right, id);
+            return n;
+        }
+
+        //if root is to be deleleted
+        if (n->left == nullptr) {
+            Node* temp = n->right;
+            delete n;
+            return temp;
+        }
+        else if (n->right == nullptr) {
+            Node* temp = n->left;
+            delete n;
+            return temp;
+        }
+            // If both children exist
+        else {
+            Node* succParent = n;
+
+            // Find successor
+            Node* succ = n->left;
+            while (succ->right != nullptr) {
+                succParent = succ;
+                succ = succ->right;
+            }
+
+            if (succParent != n)
+                succParent->right = succ->left;
+            else
+                succParent->left = succ->right;
+
+            // Copy Successor Data to root
+            n->studentID = succ->studentID;
+            n->studentName = succ->studentName;
+
+            // Delete Successor and return root
+            delete succ;
+            return n;
+        }
+        return n;
+    }
+
     void printLevel(){
         if(root == nullptr){
             cout <<"pls"<< endl;
@@ -237,7 +308,7 @@ private:
             return;
         }
         printInOrder(n->left);
-        cout << n->studentName << ",";
+        cout << n->studentName << " ";
         printInOrder(n->right);
     }
 
@@ -245,7 +316,7 @@ private:
         if(n == nullptr){
             return;
         }
-        cout << n->studentName << ",";
+        cout << n->studentName << " ";
         printPreOrder(n->left);
         printPreOrder(n->right);
     }
@@ -256,7 +327,7 @@ private:
         printPostOrder(n->left);
         printPostOrder(n->right);
 
-        cout << n->studentName << ",";
+        cout << n->studentName << " ";
     }
     void printHeightNode(Node* n){
         if(n == nullptr){
