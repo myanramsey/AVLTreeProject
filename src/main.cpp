@@ -29,8 +29,6 @@ bool isValidID(string id){
 }
 
 int main(){
-	cout << "Hello AVL!\n";
-
     AVLTree* tree = new AVLTree();
 
     string numCommands;
@@ -83,7 +81,6 @@ int main(){
         }
         else if(command == "search"){
             string searchItem = userInput.substr(pos + 1);
-            cout << searchItem << endl;
             if(searchItem[0] != '\"'){ //checks to see if searching id
                 if(tree->searchId(searchItem)){
                     cout << tree->searchIdName(searchItem) << endl;
@@ -97,11 +94,12 @@ int main(){
 //                cout << searchItem << endl;
                 vector<string> foundNames;
                 tree->searchNames(tree->root,searchItem,foundNames);
-                if(foundNames.size() > 1){
+                if(foundNames.size() ){
                     for(int i = 0; i < foundNames.size(); i++){
                         cout << foundNames[i] << endl;
                     }
                 }
+
                 else{
                     cout << foundNames[0] << endl;
                 }
