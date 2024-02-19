@@ -290,10 +290,24 @@ private:
         }
     }
 
-    void removeNthNode(int num){
 
-
+    void removeNthNode(Node* n, vector<string> &id){
+        if(n != nullptr){
+            removeNthNode(n->left,id);
+            id.push_back(n->studentID);
+            removeNthNode(n->right,id);
+        }
     }
+    string returnNodetoDelte(string id){
+        Node* temp = root->searchIdNode(root,id);
+        if(temp == nullptr){
+//            cout << "not found" << endl;
+            return nullptr;
+        }
+//        cout << "found" << endl;
+        return temp->studentID;
+    }
+
 
 
     int findLevel(Node* n){

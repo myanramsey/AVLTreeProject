@@ -118,7 +118,7 @@ int main(){
             for(int i=0; i < preOrder.size(); i++){
                 cout << preOrder[i];
                 if (i != preOrder.size() - 1) {
-                    cout << ", ";
+                    cout << "successful" << endl;
                 }
             }
             cout << endl;
@@ -138,8 +138,18 @@ int main(){
             cout << tree->findLevel(tree->root) << endl;
         }
         else if(command == "removeInorder"){
-            //TODO: Need to do
-            
+            string removeItem = userInput.substr(pos + 1);
+            vector<string> inOrder;
+            tree->removeNthNode(tree->root,inOrder);
+
+            if(stoi(removeItem) > inOrder.size()){
+                cout << "unsuccessful" << endl;
+            }
+            else{
+                string nodeToRemove = inOrder[stoi(removeItem)];
+                tree->removeNode(tree->root,nodeToRemove);
+                cout << "successful" << endl;
+            }
         }
         else{
             cout << "unsuccessful" << endl;
