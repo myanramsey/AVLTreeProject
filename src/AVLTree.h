@@ -63,9 +63,7 @@ private:
             }
             return n;
         }
-        Node* search(Node* n, string name){
-            return nullptr;
-        }
+
         //rotations
         Node* rotateRightRightCase(){
             Node* grandchild = this->right->left;
@@ -265,45 +263,36 @@ private:
     bool searchId(string id){
         Node* temp = root->searchIdNode(root,id);
         if(temp == nullptr){
-            cout << "not found" << endl;
+//            cout << "not found" << endl;
             return false;
         }
-        cout << "found" << endl;
+//        cout << "found" << endl;
         return true;
     }
+    string searchIdName(string id){
+        Node* temp = root->searchIdNode(root,id);
+        if(temp == nullptr){
+            cout << "not found" << endl;
+            return "";
+        }
+        cout << "found" << endl;
+        return temp->studentName ;
+    }
 
-
-    vector<string> foundNames(Node* n,string name){
+    void searchNames(Node* n,string name, vector<string> &names){
         vector<string> namesfound;
-        if(root == nullptr){
-            return namesfound;
-        }
-
-        queue<Node*> q;
-        q.push(root);
-
-        while(!q.empty()){
-            int size = q.size();
-
-            for(int i = 0; i < size; i++){
-                Node* current = q.front();
-                q.pop();
-
-                cout << current->studentName << " ";
-                if(current->studentID == name){
-                    namesfound.push_back(current->studentName);
-                }
-
-                if(current->left != nullptr){
-                    q.push(current->left);
-                }
-                if(current->right != nullptr){
-                    q.push(current->right);
-                }
+        if(n != nullptr) {
+            if (n->studentName == name) {
+                names.push_back(n->studentID);
             }
+            searchNames(n->left, name, names);
+            searchNames(n->right, name, names);
         }
-        //in order so make sure to print the vector in reverse
-        return namesfound;
+    }
+
+    void removeNthNode(int num){
+
+
     }
 
 
