@@ -1,4 +1,10 @@
 #include <iostream>
+#include <algorithm>
+#include <string>
+#include <queue>
+#include <cctype>
+#include <vector>
+#include <cmath>
 
 #include "AVLTree.h"
 
