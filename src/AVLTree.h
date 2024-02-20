@@ -205,11 +205,11 @@ public:
 
         // Recursive calls for ancestors of
         // node to be deleted
-        if (stoi(n->studentID) > stoi(id)) {
+        if (n->studentID > id) {
             n->left = remove(n->left, id);
             return n;
         }
-        else if (stoi(n->studentID) < stoi(id)) {
+        else if (n->studentID < id) {
             n->right = remove(n->right, id);
             return n;
         }
