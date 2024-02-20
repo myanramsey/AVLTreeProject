@@ -133,7 +133,45 @@ TEST_CASE("Rotations","[Made]"){
 }
 
 TEST_CASE("Deletion", "[Made]"){
-    x
+    AVLTree* tree = new AVLTree();
+    vector<string> preOrder;
+    SECTION("Remove Leaf Node"){
+        tree->insert("50","50");
+        tree->insert("30","30");
+        tree->insert("70","70");
+        tree->insert("20","20");
+        tree->insert("80","80");
+        tree->insert("40","40");
+        tree->insert("60","60");
+        tree->removeNode(tree->root,"20");
+
+        tree->printPreOrder(tree->root,preOrder);
+        vector<string> expectedOutput = {"50","30","40","70","60","80"};
+        REQUIRE(preOrder == expectedOutput);
+    }
+    SECTION("Remove With One Child"){
+        tree->insert("64","64");
+        tree->insert("29","29");
+        tree->insert("88","88");
+        tree->insert("90","90");
+
+        tree->removeNode(tree->root, "88");
+
+        tree->printPreOrder(tree->root,preOrder);
+        vector<string> expectedOutput = {"64","29","90"};
+        REQUIRE(preOrder == expectedOutput);
+    }
+    SECTION("Remove With Two Children"){
+        tree->insert("59","59");
+        tree->insert("21","21");
+        tree->insert("98","98");
+
+
+        tree->removeNode(tree->root, "59");
+        tree->printPreOrder(tree->root,preOrder);
+        vector<string> expectedOutput = {"98","21"};
+        REQUIRE(preOrder == expectedOutput);
+    }
 }
 
 // you must write 5 unique, meaningful tests for credit on the testing portion of this project!

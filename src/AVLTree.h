@@ -205,16 +205,16 @@ public:
 
         // Recursive calls for ancestors of
         // node to be deleted
-        if (n->studentID > id) {
+        if (stoi(n->studentID) > stoi(id)) {
             n->left = remove(n->left, id);
             return n;
         }
-        else if (n->studentID < id) {
+        else if (stoi(n->studentID) < stoi(id)) {
             n->right = remove(n->right, id);
             return n;
         }
 
-        //if root is to be deleleted
+        //if one of the children is empty
         if (n->left == nullptr) {
             Node* temp = n->right;
             delete n;
@@ -230,16 +230,16 @@ public:
             Node* succParent = n;
 
             // Find successor
-            Node* succ = n->left;
-            while (succ->right != nullptr) {
+            Node* succ = n->right;
+            while (succ->left != nullptr) {
                 succParent = succ;
-                succ = succ->right;
+                succ = succ->left;
             }
 
             if (succParent != n)
-                succParent->right = succ->left;
-            else
                 succParent->left = succ->right;
+            else
+                succParent->right = succ->left;
 
             // Copy Successor Data to root
             n->studentID = succ->studentID;
