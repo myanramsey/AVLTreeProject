@@ -280,13 +280,21 @@ private:
     }
 
     void searchNames(Node* n,string name, vector<string> &names){
-        vector<string> namesfound;
         if(n != nullptr) {
             if (n->studentName == name) {
                 names.push_back(n->studentID);
             }
             searchNames(n->left, name, names);
             searchNames(n->right, name, names);
+        }
+    }
+    void searchNamesID(Node* n,string name, vector<string> &names){
+        if(n != nullptr) {
+            if (n->studentName == name) {
+                names.push_back(n->studentName);
+            }
+            searchNamesID(n->left, name, names);
+            searchNamesID(n->right, name, names);
         }
     }
 

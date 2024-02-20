@@ -91,19 +91,25 @@ int main(){
             }
             else{
                 searchItem.erase(remove(searchItem.begin(), searchItem.end(), '\"'), searchItem.end());
-//                cout << searchItem << endl;
                 vector<string> foundNames;
+                vector<string> foundId;
+
                 tree->searchNames(tree->root,searchItem,foundNames);
+                tree->searchNamesID(tree->root,searchItem,foundId);
+
                 if(foundNames.size() == 0){
                     cout << "unsuccessful" << endl;
                 }
-                else{
-                    for(int i = 0; i < foundNames.size();i++ ){
-                        cout << foundNames[i];
-                        if(i != foundNames.size() -1 ){
-                            cout << ", ";
+                else {
+                    if(foundNames.size() > 1){
+                        for (int i = 0; i < foundNames.size(); i++){
+                            cout << foundNames[i] << endl;
                         }
                     }
+                    else{
+                        cout << foundNames[0] << endl;
+                    }
+
                 }
             }
         }
