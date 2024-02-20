@@ -56,17 +56,17 @@ int main(){
                 cout << "unsuccessful" << endl;
             }
             else{
-               auto pos_start_id = userInput.find_last_of("\" ");
-               string id = userInput.substr(pos_start_id + 1);
+                auto pos_start_id = userInput.find_last_of("\" ");
+                string id = userInput.substr(pos_start_id + 1);
 //               cout << "id:" << id << endl;
 
-               if(!isValidID(id) || id.length() != 8 || tree->searchId(id)){
-                   cout << "unsuccessful" << endl;
-               }
-               else{
-                   tree->insert(name,id);
-                   cout << "successful" << endl;
-               }
+                if(!isValidID(id) || id.length() != 8 || tree->searchId(id)){
+                    cout << "unsuccessful" << endl;
+                }
+                else{
+                    tree->insert(name,id);
+                    cout << "successful" << endl;
+                }
             }
         }
         else if(command == "remove"){
@@ -170,5 +170,5 @@ int main(){
     }
 
 
-	return 0;
+    return 0;
 }

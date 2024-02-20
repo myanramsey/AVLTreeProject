@@ -104,6 +104,9 @@ private:
     }
 
     Node* insert(string name, string id){
+        if(!isValidName(name) || isValidID(id)){
+            return root;
+        }
         if(root == nullptr){
             root = new Node(name,id);
             return root;
@@ -339,6 +342,25 @@ private:
         cout << n->studentName << "  : " << n->height << endl;
         printHeightNode(n->right);
     }
+
+    bool isValidName(string name){
+        for(unsigned int i = 0; i < name.length(); i++){
+            if(isdigit(name[i]) || ispunct(name[i])){
+                return false;
+            }
+        }
+        return true;
+    }
+    bool isValidID(string id){
+        for(unsigned int i = 0; i < id.length(); i++){
+            if(!isdigit(id[i])){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 
 };
 
