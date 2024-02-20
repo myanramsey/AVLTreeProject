@@ -5,8 +5,6 @@
 #include <vector>
 #include <cmath>
 
-
-//TODO: Ask Zack how to make test cases on checking height and order of the nodes to ensure insert working properly.
 using namespace std;
 
 class AVLTree {
@@ -17,6 +15,7 @@ private:
         int height;
         Node* left;
         Node* right;
+
         Node(){
             this->studentName = "";
             this->studentID = "";
@@ -29,6 +28,7 @@ private:
             this->right = nullptr;
 
         }
+
         Node* insertNode(string name, string id){
             if(stoi(id) < stoi(this->studentID)){
                 if(this->left == nullptr){
@@ -96,19 +96,12 @@ private:
         //
     };
     public:
+
     Node* root;
 
     AVLTree() {
         this->root= nullptr;
     }
-    AVLTree(string studentName, string studentID) {
-        this->root->studentName = studentName;
-        this->root->studentID = studentID;
-        this->root->height = 0;
-        this->root->left = nullptr;
-        this->root->right = nullptr;
-    }
-
 
     Node* insert(string name, string id){
         if(root == nullptr){
@@ -199,7 +192,6 @@ private:
         int h = -1;
         n->height = updateHeightHelp(n,x,h);
     }
-
 
     Node* removeNode(Node* n,string id){
         root = remove(root,id);
@@ -298,7 +290,6 @@ private:
         }
     }
 
-
     void removeNthNode(Node* n, vector<string> &id){
         if(n != nullptr){
             removeNthNode(n->left,id);
@@ -306,17 +297,6 @@ private:
             removeNthNode(n->right,id);
         }
     }
-    string returnNodetoDelte(string id){
-        Node* temp = root->searchIdNode(root,id);
-        if(temp == nullptr){
-//            cout << "not found" << endl;
-            return nullptr;
-        }
-//        cout << "found" << endl;
-        return temp->studentID;
-    }
-
-
 
     int findLevel(Node* n){
         if (n == nullptr) {
@@ -329,6 +309,7 @@ private:
             return max(leftDepth,rightDepth) + 1;
         }
     }
+
     void printInOrder(Node* n, vector<string> &names){
         if(n != nullptr){
             printInOrder(n->left,names);
