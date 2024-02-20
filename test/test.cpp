@@ -1,10 +1,10 @@
-#include <catch2/catch_test_macros.hpp>
-#include "AVLTree.h"
-#include <iostream>
-
-using namespace std;
-
-
+//#include <catch2/catch_test_macros.hpp>
+//#include "AVLTree.h"
+//#include <iostream>
+//
+//using namespace std;
+//
+//
 ////
 ////// the syntax for defining a test is below. It is important for the name to be unique, but you can group multiple tests with [tags]. A test can have [multiple][tags] using that syntax.
 //TEST_CASE("Incorrect Commands", "[Made]"){
@@ -173,20 +173,20 @@ using namespace std;
 //        REQUIRE(preOrder == expectedOutput);
 //    }
 //}
-
-// you must write 5 unique, meaningful tests for credit on the testing portion of this project!
-
-// the provided test from the template is below.
-
-//TEST_CASE("Example BST Insert", "[flag]"){
-//	/*
-//		MyAVLTree tree;   // Create a Tree object
-//		tree.insert(3);
-//		tree.insert(2);
-//		tree.insert(1);
-//		std::vector<int> actualOutput = tree.inorder();
-//		std::vector<int> expectedOutput = {1, 2, 3};
-//		REQUIRE(expectedOutput.size() == actualOutput.size());
-//		REQUIRE(actualOutput == expectedOutput);
-//	*/
-//}
+//
+//// you must write 5 unique, meaningful tests for credit on the testing portion of this project!
+//
+//// the provided test from the template is below.
+//
+////TEST_CASE("Example BST Insert", "[flag]"){
+////	/*
+////		MyAVLTree tree;   // Create a Tree object
+////		tree.insert(3);
+////		tree.insert(2);
+////		tree.insert(1);
+////		std::vector<int> actualOutput = tree.inorder();
+////		std::vector<int> expectedOutput = {1, 2, 3};
+////		REQUIRE(expectedOutput.size() == actualOutput.size());
+////		REQUIRE(actualOutput == expectedOutput);
+////	*/
+////}
