@@ -10,24 +10,6 @@
 
 using namespace std;
 
-bool isValidName(string name){
-    for(unsigned int i = 0; i < name.length(); i++){
-        if(isdigit(name[i]) || ispunct(name[i])){
-            return false;
-        }
-    }
-    return true;
-}
-bool isValidID(string id){
-    for(unsigned int i = 0; i < id.length(); i++){
-        if(!isdigit(id[i])){
-            return false;
-        }
-    }
-
-    return true;
-}
-
 int main(){
     AVLTree* tree = new AVLTree();
 
@@ -52,7 +34,7 @@ int main(){
 //            cout << "name:" << name << endl;
 
             //check if valid name
-            if(isValidName(name) == false){
+            if(tree->isValidName(name) == false){
                 cout << "unsuccessful" << endl;
             }
             else{
@@ -60,7 +42,7 @@ int main(){
                 string id = userInput.substr(pos_start_id + 1);
 //               cout << "id:" << id << endl;
 
-                if(!isValidID(id) || id.length() != 8 || tree->searchId(id)){
+                if(!tree->isValidID(id) || tree->searchId(id)){
                     cout << "unsuccessful" << endl;
                 }
                 else{
@@ -71,7 +53,7 @@ int main(){
         }
         else if(command == "remove"){
             string id = userInput.substr(pos + 1);
-            if(!isValidID(id) || id.length() != 8 || !tree->searchId(id)){
+            if(!tree->isValidID(id) || !tree->searchId(id)){
                 cout << "unsuccessful" << endl;
             }
             else{

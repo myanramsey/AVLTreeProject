@@ -352,6 +352,9 @@ private:
         return true;
     }
     bool isValidID(string id){
+        if(id.length() != 8){
+            return false;
+        }
         for(unsigned int i = 0; i < id.length(); i++){
             if(!isdigit(id[i])){
                 return false;
