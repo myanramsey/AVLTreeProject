@@ -209,7 +209,7 @@ public:
             n->left = remove(n->left, id);
             return n;
         }
-        else if (n->studentID < id) {
+        else if(n->studentID < id) {
             n->right = remove(n->right, id);
             return n;
         }
