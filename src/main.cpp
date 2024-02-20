@@ -130,7 +130,7 @@ int main(){
             for(int i=0; i < preOrder.size(); i++){
                 cout << preOrder[i];
                 if (i != preOrder.size() - 1) {
-                    cout << "successful" << endl;
+                    cout << ", ";
                 }
             }
             cout << endl;
