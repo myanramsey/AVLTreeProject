@@ -147,7 +147,7 @@ int main(){
             cout << endl;
         }
         else if(command == "printLevelCount"){
-            cout << tree->`findLevel`(tree->root) << endl;
+            cout << tree->findLevel(tree->root) << endl;
         }
         else if(command == "removeInorder"){
             string removeItem = userInput.substr(pos + 1);
