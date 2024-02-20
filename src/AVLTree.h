@@ -326,7 +326,7 @@ private:
             int leftDepth = findLevel(n->left);
             int rightDepth = findLevel(n->right);
 
-            return max(leftDepth,rightDepth);
+            return max(leftDepth,rightDepth) + 1;
         }
     }
     void printInOrder(Node* n, vector<string> &names){
