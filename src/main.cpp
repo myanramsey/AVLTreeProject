@@ -42,7 +42,7 @@ int main(){
                 string id = userInput.substr(pos_start_id + 1);
 //               cout << "id:" << id << endl;
 
-                if(!tree->isValidID(id) || tree->searchId(id)){
+                if(!tree->isValidID(id) || id.length() != 8 || tree->searchId(id)){
                     cout << "unsuccessful" << endl;
                 }
                 else{
@@ -53,7 +53,7 @@ int main(){
         }
         else if(command == "remove"){
             string id = userInput.substr(pos + 1);
-            if(!tree->isValidID(id) || !tree->searchId(id)){
+            if(!tree->isValidID(id) || id.length() != 8 || !tree->searchId(id)){
                 cout << "unsuccessful" << endl;
             }
             else{
