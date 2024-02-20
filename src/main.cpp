@@ -94,14 +94,16 @@ int main(){
 //                cout << searchItem << endl;
                 vector<string> foundNames;
                 tree->searchNames(tree->root,searchItem,foundNames);
-                if(foundNames.size() ){
-                    for(int i = 0; i < foundNames.size(); i++){
-                        cout << foundNames[i] << endl;
-                    }
+                if(foundNames.size() == 0){
+                    cout << "unsuccessful" << endl;
                 }
-
                 else{
-                    cout << foundNames[0] << endl;
+                    for(int i = 0; i < foundNames.size();i++ ){
+                        cout << foundNames[i];
+                        if(i != foundNames.size() -1 ){
+                            cout << ", ";
+                        }
+                    }
                 }
             }
         }

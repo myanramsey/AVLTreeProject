@@ -135,35 +135,35 @@ private:
         int balanceFactor = checkHeight(n->left) - checkHeight(n->right);
         if(balanceFactor < -1 || balanceFactor > 1){
 
-            cout << n->studentName << " is unbalanced. BF: " << balanceFactor << endl;
+//            cout << n->studentName << " is unbalanced. BF: " << balanceFactor << endl;
 
             if(balanceFactor == -2){
-                cout << "right heavy" << endl;
+//                cout << "right heavy" << endl;
                 //Check for right left rotation
                 if(n->right->right == nullptr){
                     //rotation right left rotation
-                    cout << "right left rotation" << endl;
+//                    cout << "right left rotation" << endl;
                     n = n->rightLeftCase();
                     return n;
                 }
                 else{
                     //right right
-                    cout << "right right" << endl;
+//                    cout << "right right" << endl;
                     n = n->rotateRightRightCase();
                     return n;
                 }
             }
             else if(balanceFactor == 2){
-                cout << "left heavy" << endl;
+//                cout << "left heavy" << endl;
                 if(n->left->left == nullptr){
                     // left right rotation
-                    cout << "left-right rotation" << endl;
+//                    cout << "left-right rotation" << endl;
                     n = n->leftRightCase();
                     return n;
                 }
                 else{
                     //left left rotation
-                    cout << "left-left rotation" << endl;
+//                    cout << "left-left rotation" << endl;
                     n = n->rotateLeftLeftCase();
                     return n;
                 }
@@ -272,10 +272,10 @@ private:
     string searchIdName(string id){
         Node* temp = root->searchIdNode(root,id);
         if(temp == nullptr){
-            cout << "not found" << endl;
+//            cout << "not found" << endl;
             return "";
         }
-        cout << "found" << endl;
+//        cout << "found" << endl;
         return temp->studentName ;
     }
 
