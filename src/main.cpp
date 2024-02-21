@@ -77,7 +77,7 @@ int main(){
                     cout << "unsuccessful" << endl;
                 }
                 else {
-                    if(foundNames.size() > 1){
+                    if(foundNames.size() > 1){ //If more than one of the same name
                         for (int i = 0; i < foundNames.size(); i++){
                             cout << foundNames[i] << endl;
                         }
@@ -128,9 +128,9 @@ int main(){
         else if(command == "removeInorder"){
             string removeItem = userInput.substr(pos + 1);
             vector<string> inOrder;
-            tree->removeNthNode(tree->root,inOrder);
+            tree->removeNthNode(tree->root,inOrder);//Get ID that is inorder, since there can be multiple of same name
 
-            if(stoi(removeItem) > inOrder.size()){
+            if(stoi(removeItem) > inOrder.size()){ //If the nth index DNE
                 cout << "unsuccessful" << endl;
             }
             else{
@@ -144,7 +144,5 @@ int main(){
         }
         turns--;
     }
-
-
     return 0;
 }
