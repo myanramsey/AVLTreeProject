@@ -135,8 +135,13 @@ int main(){
             }
             else{
                 string nodeToRemove = inOrder[stoi(removeItem)];
-                tree->removeNode(tree->root,nodeToRemove);
-                cout << "successful" << endl;
+                if(tree->searchId(nodeToRemove)){
+                    tree->removeNode(tree->root,nodeToRemove);
+                    cout << "successful" << endl;
+                }
+               else{
+                   cout << "unsuccessful" << endl;
+               }
             }
         }
         else{
