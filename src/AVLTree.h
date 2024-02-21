@@ -62,7 +62,7 @@ private:
                 return searchIdNode((n->right),id);
             }
             return n;
-        }
+        } //Searches if ID exist
 
         //rotations
         Node* rotateRightRightCase(){
@@ -104,16 +104,15 @@ public:
     }
 
     Node* insert(string name, string id){
-        if(root == nullptr){
+        if(root == nullptr){ //If there is nothing in the Tree
             root = new Node(name,id);
             return root;
         }
 
-        root->insertNode(name,id);
+        root->insertNode(name,id); //Inserts node recursively
 
-        updateHeight(root, root->studentID);
-        root = findUnbalancedRotate(root);
-
+        updateHeight(root, root->studentID);// Updates height of node to caculate balance factor
+        root = findUnbalancedRotate(root); // Caculates Balance Factor and find first node that needs to be chnage and rotates
 
         return root;
     }
@@ -128,35 +127,27 @@ public:
         int balanceFactor = checkHeight(n->left) - checkHeight(n->right);
         if(balanceFactor < -1 || balanceFactor > 1){
 
-//            cout << n->studentName << " is unbalanced. BF: " << balanceFactor << endl;
-
-            if(balanceFactor == -2){
-//                cout << "right heavy" << endl;
+            if(balanceFactor == -2){ //Right Heavy
                 //Check for right left rotation
                 if(n->right->right == nullptr){
                     //rotation right left rotation
-//                    cout << "right left rotation" << endl;
                     n = n->rightLeftCase();
                     return n;
                 }
                 else{
-                    //right right
-//                    cout << "right right" << endl;
+                    //right right case
                     n = n->rotateRightRightCase();
                     return n;
                 }
             }
-            else if(balanceFactor == 2){
-//                cout << "left heavy" << endl;
+            else if(balanceFactor == 2){ //Left Heavy
                 if(n->left->left == nullptr){
                     // left right rotation
-//                    cout << "left-right rotation" << endl;
                     n = n->leftRightCase();
                     return n;
                 }
                 else{
                     //left left rotation
-//                    cout << "left-left rotation" << endl;
                     n = n->rotateLeftLeftCase();
                     return n;
                 }
@@ -172,7 +163,7 @@ public:
         else{
             return n->height;
         }
-    }
+    } // Check height helper function
 
     int updateHeightHelp(Node* n, string x, int &h){
         if(n == nullptr){
@@ -255,19 +246,17 @@ public:
     bool searchId(string id){
         Node* temp = root->searchIdNode(root,id);
         if(temp == nullptr){
-//            cout << "not found" << endl;
+            //ID is not found
             return false;
         }
-//        cout << "found" << endl;
+        //Id found
         return true;
     }
     string searchIdName(string id){
         Node* temp = root->searchIdNode(root,id);
-        if(temp == nullptr){
-//            cout << "not found" << endl;
+        if(temp == nullptr){ //If name is not found
             return "";
         }
-//        cout << "found" << endl;
         return temp->studentName ;
     }
 
@@ -291,6 +280,7 @@ public:
     }
 
     void removeNthNode(Node* n, vector<string> &id){
+        //BFT to create preorder vector to find the ID associated with name
         if(n != nullptr){
             removeNthNode(n->left,id);
             id.push_back(n->studentID);
@@ -298,7 +288,7 @@ public:
         }
     }
 
-    int findLevel(Node* n){
+    int findLevel(Node* n){ //finds max level of tree
         if (n == nullptr) {
             return 0;
         }
@@ -339,6 +329,7 @@ public:
         cout << n->studentName << "  : " << n->height << endl;
         printHeightNode(n->right);
     }
+
     bool isValidName(string name){
         for(unsigned int i = 0; i < name.length(); i++){
             if(isdigit(name[i]) || ispunct(name[i])){

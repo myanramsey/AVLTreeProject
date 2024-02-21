@@ -1,10 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
-#include <queue>
-#include <cctype>
 #include <vector>
-#include <cmath>
 
 #include "AVLTree.h"
 
@@ -24,14 +21,12 @@ int main(){
         auto pos = userInput.find(' ');
 
         string command = userInput.substr(0,pos);
-//        cout << command << endl;
         if(command == "insert"){
 
             auto pos_string_start = userInput.find('\"') + 1;
             auto pos_string_end = userInput.substr(pos_string_start).find('\"');
 
             string name = userInput.substr(pos_string_start,pos_string_end);
-//            cout << "name:" << name << endl;
 
             //check if valid name
             if(tree->isValidName(name) == false){
@@ -40,12 +35,11 @@ int main(){
             else{
                 auto pos_start_id = userInput.find_last_of("\" ");
                 string id = userInput.substr(pos_start_id + 1);
-//               cout << "id:" << id << endl;
 
                 if(!tree->isValidID(id) || id.length() != 8 || tree->searchId(id)){
                     cout << "unsuccessful" << endl;
                 }
-                else{
+                else{ //If valid and name in inserts into tree
                     tree->insert(name,id);
                     cout << "successful" << endl;
                 }
