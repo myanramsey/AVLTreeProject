@@ -239,7 +239,7 @@ public:
             if (succParent != n)
                 succParent->left = succ->right;
             else
-                succParent->right = succ->left;
+                succParent->right = succ->right;
 
             // Copy Successor Data to root
             n->studentID = succ->studentID;
