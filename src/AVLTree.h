@@ -153,7 +153,7 @@ public:
                 }
             }
         }
-        return n;
+        return root;
     }
 
     int checkHeight(Node* n){
